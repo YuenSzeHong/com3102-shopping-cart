@@ -23,7 +23,7 @@ export default function CartItem({
       <td>{item.quantity}</td>
       <td>
         <Button variant="outline-warning" size="sm" onClick={decrementItem}>
-          -1
+          ➖
         </Button>
       </td>
       <td>${(itemInfo?.price ?? 0) * item.quantity}</td>
