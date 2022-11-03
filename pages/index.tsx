@@ -175,7 +175,7 @@ export default function App() {
                   </td>
                   <td>
                     <Button variant="danger" onClick={() => setCart([])}>
-                      Clear
+                      🗑️
                     </Button>
                   </td>
                 </tr>

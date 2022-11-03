@@ -29,7 +29,7 @@ export default function CartItem({
       <td>${(itemInfo?.price ?? 0) * item.quantity}</td>
       <td>
         <Button variant="danger" onClick={removeItem}>
-          Remove
+          🗑️
         </Button>
       </td>
     </tr>
