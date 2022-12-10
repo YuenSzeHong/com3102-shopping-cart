@@ -1,7 +1,15 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import { getAllItems, Item } from "./core";
-import { Container, Col, Row, Navbar, Table, Button } from "react-bootstrap";
+import {
+  Container,
+  Col,
+  Row,
+  Navbar,
+  Table,
+  Button,
+  Form,
+} from "react-bootstrap";
 import Head from "next/head";
 import ShopItem from "../components/ShopItem";
 import CartItem from "../components/CartItem";
@@ -13,8 +21,24 @@ export interface LineItem {
 
 export default function App() {
   const [cart, setCart] = useState<LineItem[]>([]);
+
+  const [search, setSearch] = useState("");
+
+  const [filteredItems, setFilteredItems] = useState<Item[]>([]);
+
   useEffect(() => {
-    console.debug('current cart',
+    setFilteredItems(
+      getAllItems().filter(
+        (item) =>
+          item.title.toLowerCase().includes(search.toLowerCase()) ||
+          item.description.toLowerCase().includes(search.toLowerCase())
+      )
+    );
+  }, [search]);
+
+  useEffect(() => {
+    console.debug(
+      "current cart",
       cart.map((lineItem) => {
         const item = getAllItems().find(
           (item) => item.id === lineItem.item
@@ -85,8 +109,19 @@ export default function App() {
         <Row>
           <Col>
             <h3 className="h3 my-3">Shop🛍️</h3>
+            <Form>
+              <Form.Group controlId="search">
+                <Form.Control
+                  type="text"
+                  placeholder="Search"
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                  }}
+                />
+              </Form.Group>
+            </Form>
             <div className="d-flex flex-wrap">
-              {getAllItems().map((item) => (
+              {filteredItems.map((item) => (
                 <ShopItem
                   key={item.id}
                   item={item}

@@ -5,11 +5,8 @@ export interface Item {
     price: number;
 }
 
-export function getAllItems(): readonly Item[] {
-    return shopItems;
-}
 
-const shopItems = [
+let shopItems = [
     {
         id: '101',
         title: 'PS5 Router',
@@ -76,4 +73,12 @@ const shopItems = [
         description: 'No idea',
         price: 345
     }
-] as const;
+];
+
+export function getAllItems(): readonly Item[] {
+    return shopItems;
+}
+
+export function addItem(id: string, title: string, description: string, price: number) {
+    shopItems = [...shopItems, { id, title, description, price }];
+}
