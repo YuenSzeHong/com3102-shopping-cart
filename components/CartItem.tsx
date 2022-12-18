@@ -6,11 +6,13 @@ import { getAllItems } from "../pages/core";
 export default function CartItem({
   item,
   decrementItem,
+  incrementItem,
   removeItem,
 }: {
   quantity: number;
   item: LineItem;
   removeItem: () => void;
+  incrementItem: () => void;
   decrementItem: () => void;
 }) {
   const itemInfo = getAllItems().find((itemInfo) => itemInfo.id === item.item);
@@ -19,10 +21,15 @@ export default function CartItem({
       <td className="text-nowrap">{itemInfo?.title}</td>
       <td>{itemInfo?.description}</td>
       <td>${itemInfo?.price}</td>
-      <td>{item.quantity}</td>
       <td>
         <Button variant="outline-warning" size="sm" onClick={decrementItem}>
           ➖
+        </Button>
+      </td>
+      <td>{item.quantity}</td>
+      <td>
+        <Button variant="outline-success" size="sm" onClick={incrementItem}>
+          ➕
         </Button>
       </td>
       <td>${(itemInfo?.price ?? 0) * item.quantity}</td>

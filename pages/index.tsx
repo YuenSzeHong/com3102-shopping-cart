@@ -79,6 +79,14 @@ export default function App() {
     setCart(cart.filter((lineItem) => lineItem.item !== item));
   }
 
+  function incrementItem(index: string) {
+    const lineItem = cart.find((lineItem) => lineItem.item === index);
+    if (lineItem) {
+      lineItem.quantity++;
+      setCart([...cart]);
+    }
+  }
+
   function decrementItem(index: string) {
     // item quantity > 1 ? quantity - 1 : remove item
     const lineItem = cart.find((lineItem) => lineItem.item === index);
@@ -103,6 +111,18 @@ export default function App() {
       <Navbar bg="primary" variant="dark">
         <Container>
           <Navbar.Brand>Shopping Cart</Navbar.Brand>
+          <Navbar.Text>{`${cart.reduce(
+            (acc, curr) => acc + curr.quantity,
+            0
+          )} Item in cart, Total $${cart.reduce((total, lineItem) => {
+            const item = getAllItems().find(
+              (item) => item.id === lineItem.item
+            );
+            if (item) {
+              return total + item.price * lineItem.quantity;
+            }
+            return total;
+          }, 0)}`}</Navbar.Text>
         </Container>
       </Navbar>
       <Container>
@@ -138,7 +158,7 @@ export default function App() {
                   <th>Item</th>
                   <th>Description</th>
                   <th>Price</th>
-                  <th colSpan={2}>Quantity</th>
+                  <th colSpan={3}>Quantity</th>
                   <th className="text-nowrap">Sub-Total</th>
                   <th>Remove</th>
                 </tr>
@@ -154,17 +174,20 @@ export default function App() {
                       removeItem={() => {
                         removeItem(lineItem.item);
                       }}
+                      incrementItem={() => {
+                        incrementItem(lineItem.item);
+                      }}
                     />
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={7}>No items in cart</td>
+                    <td colSpan={8}>No items in cart</td>
                   </tr>
                 )}
               </tbody>
               <tfoot>
                 <tr>
-                  <td colSpan={2}>
+                  <td colSpan={3}>
                     <Button
                       className="text-nowrap"
                       onClick={() => {
