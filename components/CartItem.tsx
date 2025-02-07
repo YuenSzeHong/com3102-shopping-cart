@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import { LineItem } from "../pages/index";
-import { getAllItems } from "../pages/core";
+import { getAllItems } from "../lib/core";
 
 export default function CartItem({
   item,

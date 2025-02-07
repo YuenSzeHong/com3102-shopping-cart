@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
-import { getAllItems, Item } from "./core";
+import { getAllItems, Item } from "../lib/core";
 import {
   Container,
   Col,

@@ -1,5 +1,5 @@
 import React from "react";
-import { Item } from "../pages/core";
+import { Item } from "../lib/core";
 import { Button, Card } from "react-bootstrap";
 
 export default function ShopItem({
